@@ -30,9 +30,7 @@
 struct grpc_tls_err_details
     : public grpc_core::RefCounted<grpc_tls_err_details> {
  public:
-  void set_err_details(const char* err_details) {
-    error_msg_ = gpr_strdup(err_details);
-  }
+  void set_err_details(const char* err_details) { error_msg_ = err_details; }
   std::string err_details() { return error_msg_; }
   bool has_error() { return error_msg_.empty(); }
 
