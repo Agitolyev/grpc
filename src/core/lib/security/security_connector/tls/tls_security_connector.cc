@@ -105,9 +105,7 @@ grpc_status_code TlsFetchKeyMaterials(
         gpr_log(GPR_DEBUG, "Credential does not change after reload.");
       } else if (arg->status == GRPC_SSL_CERTIFICATE_CONFIG_RELOAD_FAIL) {
         gpr_log(GPR_ERROR, "Credential reload failed with an error:");
-        if (arg->error_details->has_error()) {
-          gpr_log(GPR_ERROR, "%s", arg->error_details->err_details().c_str());
-        }
+        gpr_log(GPR_ERROR, "%s", arg->error_details->err_details().c_str());
         reload_status =
             is_key_materials_empty ? GRPC_STATUS_INTERNAL : GRPC_STATUS_OK;
       }

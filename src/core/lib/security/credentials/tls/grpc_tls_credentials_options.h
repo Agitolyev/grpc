@@ -30,12 +30,16 @@
 struct grpc_tls_err_details
     : public grpc_core::RefCounted<grpc_tls_err_details> {
  public:
-  void set_err_details(const char* err_details) { error_msg_ = err_details; }
-  std::string err_details() { return error_msg_; }
-  bool has_error() { return error_msg_.empty(); }
+  grpc_tls_err_details() : error_details_("") {}
+  void set_err_details(const char* err_details) {
+    error_details_ = err_details;
+  }
+  const std::string& err_details() { return error_details_; }
+  const char* err_details_c_str() { return error_details_.c_str(); }
+  bool has_error() { return !error_details_.empty(); }
 
  private:
-  std::string error_msg_;
+  std::string error_details_;
 };
 
 /** TLS key materials config. **/
